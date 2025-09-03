@@ -7,7 +7,7 @@ async function install() {
     const filePath = path.join(__dirname, '../sql/initial-queries.sql');
     const sqlScript = fs.readFileSync(filePath, 'utf8');
 
-    // Split queries by semicolon (but ignore semicolons inside definitions or strings)
+   
     const queries = sqlScript
       .split(/;\s*$/gm)
       .map(q => q.trim())
@@ -21,13 +21,12 @@ async function install() {
         executedCount++;
       } catch (err) {
         console.warn(`⚠️ Skipped query due to error:\n${query}\nError: ${err.message}\n`);
-        // Don't throw — continue with next query
       }
     }
 
     return {
       status: 200,
-      message: `✅ Install complete: ${executedCount} queries executed.`
+      message: ` Install complete: ${executedCount} queries executed.`
     };
   } catch (err) {
     console.error('❌ Install failed:', err);
