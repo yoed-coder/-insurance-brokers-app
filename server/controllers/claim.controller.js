@@ -1,11 +1,11 @@
 const claimService = require('../services/claim.service');
 
-// ✅ Create a new claim
+
 exports.createClaim = async (req, res) => {
   console.log('✅ [POST] /api/claim endpoint hit');
   try {
     const claimData = req.body;
-    const performerId = req.employee?.employee_id ?? null; // employee performing the action
+    const performerId = req.employee?.employee_id ?? null; 
     const result = await claimService.createClaim(claimData, performerId);
 
     res.status(201).json({
@@ -22,7 +22,7 @@ exports.createClaim = async (req, res) => {
   }
 };
 
-// ✅ Get all claims
+
 exports.getAllClaims = async (req, res) => {
   try {
     const claims = await claimService.getAllClaims();
@@ -33,7 +33,7 @@ exports.getAllClaims = async (req, res) => {
   }
 };
 
-// ✅ Get claims by insured ID
+
 exports.getClaimsByInsuredId = async (req, res) => {
   try {
     const { insuredId } = req.params;
@@ -45,7 +45,7 @@ exports.getClaimsByInsuredId = async (req, res) => {
   }
 };
 
-// ✅ Update claim by ID
+
 exports.updateClaim = async (req, res) => {
   const { id } = req.params;
   try {
@@ -63,7 +63,7 @@ exports.updateClaim = async (req, res) => {
   }
 };
 
-// ✅ Delete claim by ID
+
 exports.deleteClaim = async (req, res) => {
   try {
     const { id } = req.params;
