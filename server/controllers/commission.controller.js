@@ -1,6 +1,6 @@
 const commissionService = require('../services/commission.service');
 
-// ✅ Get all commission statuses
+
 exports.getCommissionStatus = async (req, res) => {
   try {
     const data = await commissionService.getCommissionStatus();
@@ -11,7 +11,7 @@ exports.getCommissionStatus = async (req, res) => {
   }
 };
 
-// ✅ Add a new commission payment
+
 exports.addCommissionPayment = async (req, res) => {
   try {
     const { policy_id, payment_amount, paid_by } = req.body;
@@ -28,7 +28,7 @@ exports.addCommissionPayment = async (req, res) => {
   }
 };
 
-// ✅ Update commission details (inline edit)
+
 exports.updateCommissionDetails = async (req, res) => {
   try {
     const { policyId } = req.params;
@@ -43,7 +43,7 @@ exports.updateCommissionDetails = async (req, res) => {
   }
 };
 
-// ✅ Update commission status
+
 exports.updateCommissionStatus = async (req, res) => {
   try {
     const { policyId } = req.params;
