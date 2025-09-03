@@ -1,6 +1,6 @@
 const employeeService = require('../services/employee.service');
 const loginService = require('../services/login.service')
-// ✅ LOGIN Employee
+
 async function loginEmployee(req, res, next) {
   try {
     const { employee_email, employee_password } = req.body;
@@ -31,7 +31,7 @@ async function loginEmployee(req, res, next) {
     });
   }
 }
-// ✅ CREATE Employee
+
 async function createEmployee(req, res, next) {
   try {
     const employeeExists = await employeeService.checkIfEmployeeExists(req.body.employee_email);
@@ -64,7 +64,7 @@ async function createEmployee(req, res, next) {
   }
 }
 
-// ✅ READ All Employees
+
 async function getAllEmployees(req, res, next) {
   try {
     const employees = await employeeService.getAllEmployees();
@@ -88,12 +88,9 @@ async function getAllEmployees(req, res, next) {
   }
 }
 
-// ✅ UPDATE Employe
-
-/* ---------------- Update Employee ---------------- */
 async function updateEmployee(req, res) {
   try {
-    const { id } = req.params; // from route: /employees/:id
+    const { id } = req.params; 
     const updatedData = req.body;
 
     const result = await employeeService.updateEmployee(id, updatedData);
@@ -110,12 +107,9 @@ async function updateEmployee(req, res) {
 }
 
 module.exports = {
-  updateEmployee, // ✅ now this exists
-  // … plus your other controller functions
+  updateEmployee, 
 };
 
-
-// ✅ DELETE Employee
 async function deleteEmployee(req, res, next) {
   try {
     const employeeId = req.params.id;
@@ -136,7 +130,7 @@ async function deleteEmployee(req, res, next) {
   }
 }
 
-// ✅ Export All Functions
+
 module.exports = {
   loginEmployee,
   createEmployee,
