@@ -1,9 +1,6 @@
 const { pool } = require('../config/db.config');
-const { addLog } = require('./audit.Service'); // ✅ use addLog instead of logAudit
+const { addLog } = require('./audit.Service'); 
 
-// =========================
-// CREATE CLAIM (flexible)
-// =========================
 exports.createClaim = async (claim, performerId = null) => {
   const {
     insured_name,
@@ -22,7 +19,7 @@ exports.createClaim = async (claim, performerId = null) => {
   let vehicle_id = null;
   let policy_id = null;
 
-  // 1️⃣ Get or create insured
+
   if (insured_name) {
     const [insuredRows] = await pool.execute(
       'SELECT * FROM insured WHERE insured_name = ?',
@@ -33,7 +30,6 @@ exports.createClaim = async (claim, performerId = null) => {
       : (await pool.execute('INSERT INTO insured (insured_name) VALUES (?)', [insured_name]))[0].insertId;
   }
 
-  // 2️⃣ Get or create vehicle
   if (plate_number) {
     const [vehicleRows] = await pool.execute(
       'SELECT * FROM vehicle WHERE plate_number = ?',
@@ -47,7 +43,6 @@ exports.createClaim = async (claim, performerId = null) => {
         ))[0].insertId;
   }
 
-  // 3️⃣ Get or create policy
   if (policy_number) {
     const defaultPolicyTypeName = 'Auto';
     const [policyTypeRows] = await pool.execute(
@@ -87,7 +82,6 @@ exports.createClaim = async (claim, performerId = null) => {
     }
   }
 
-  // 4️⃣ Get or create claim status
   let status_id = null;
   if (status_name) {
     const [statusRows] = await pool.execute(
@@ -99,7 +93,6 @@ exports.createClaim = async (claim, performerId = null) => {
       : (await pool.execute('INSERT INTO claim_status (status_name) VALUES (?)', [status_name]))[0].insertId;
   }
 
-  // 5️⃣ Get or create claim subject type
   let subject_type_id = null;
   if (subject_type_name) {
     const [subjectRows] = await pool.execute(
@@ -111,7 +104,6 @@ exports.createClaim = async (claim, performerId = null) => {
       : (await pool.execute('INSERT INTO claim_subject_type (type_name) VALUES (?)', [subject_type_name]))[0].insertId;
   }
 
-  // 6️⃣ Insert claim
   const [result] = await pool.execute(
     `INSERT INTO claim (
        policy_id, insured_id, vehicle_id,
@@ -132,7 +124,6 @@ exports.createClaim = async (claim, performerId = null) => {
     ]
   );
 
-  // 7️⃣ Log audit entry using addLog
   await addLog(
     performerId ?? null,
     'CREATE',
@@ -144,9 +135,6 @@ exports.createClaim = async (claim, performerId = null) => {
   return result;
 };
 
-// =========================
-// GET ALL CLAIMS
-// =========================
 exports.getAllClaims = async () => {
   const [rows] = await pool.execute(`
     SELECT 
@@ -172,13 +160,8 @@ exports.getAllClaims = async () => {
   return rows;
 };
 
-// =========================
-// UPDATE CLAIM
-// =========================
 exports.updateClaim = async (claimId, updateData, performerId = null) => {
-  // ... existing update logic ...
-
-  // Log audit entry
+ 
   await addLog(
     performerId ?? null,
     'UPDATE',
@@ -190,13 +173,9 @@ exports.updateClaim = async (claimId, updateData, performerId = null) => {
   return result;
 };
 
-// =========================
-// DELETE CLAIM
-// =========================
 exports.deleteClaim = async (claimId, performerId = null) => {
   await pool.execute(`DELETE FROM claim WHERE claim_id = ?`, [claimId]);
 
-  // Log audit entry
   await addLog(
     performerId ?? null,
     'DELETE',
