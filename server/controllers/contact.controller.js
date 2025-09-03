@@ -10,18 +10,18 @@ const sendContactMessage = async (req, res) => {
         .json({ error: "Name, email, and message are required." });
     }
 
-    // Create transporter with App Password
+  
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.MAIL_USER,       // your Gmail address
-        pass: process.env.APP_PASSWORD,    // your 16-char App Password
+        user: process.env.MAIL_USER,       
+        pass: process.env.APP_PASSWORD,    
       },
     });
 
     const mailOptions = {
       from: `"Insurance Website" <${process.env.MAIL_USER}>`,
-      to: process.env.MAIL_TO || process.env.MAIL_USER, // recipient
+      to: process.env.MAIL_TO || process.env.MAIL_USER, 
       subject: "New Contact Form Message",
       html: `
         <h2>New Contact Form Submission</h2>
