@@ -1,6 +1,6 @@
 const insuredService = require('../services/insured.service');
 
-// Create a new insured
+
 exports.createInsured = async (req, res) => {
   try {
     const { insured_name } = req.body;
@@ -17,7 +17,7 @@ exports.createInsured = async (req, res) => {
   }
 };
 
-// Get all insureds
+
 exports.getAllInsureds = async (req, res) => {
   try {
     const insureds = await insuredService.getAllInsureds();
@@ -28,7 +28,6 @@ exports.getAllInsureds = async (req, res) => {
   }
 };
 
-// Update an insured by ID
 exports.updateInsured = async (req, res) => {
   try {
     const { id } = req.params;
@@ -46,7 +45,6 @@ exports.updateInsured = async (req, res) => {
   }
 };
 
-// Delete an insured by ID
 exports.deleteInsured = async (req, res) => {
   try {
     const { id } = req.params;
