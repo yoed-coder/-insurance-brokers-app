@@ -1,7 +1,6 @@
 const insurerService = require('../services/partner.service');
 const aiService = require('../services/ai.service');
 
-// GET /insurer
 exports.getAllInsurers = async (req, res) => {
   try {
     const insurers = await insurerService.getAllInsurers();
@@ -12,7 +11,7 @@ exports.getAllInsurers = async (req, res) => {
   }
 };
 
-// POST /insurer/letter
+
 exports.generateLetter = async (req, res) => {
   try {
     const { insurerId, letterType, instructions } = req.body;
