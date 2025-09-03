@@ -1,6 +1,5 @@
 const reportService = require('../services/report.service');
 
-// ✅ Fetch policies expiring soon
 exports.getExpiringPolicies = async (req, res) => {
   try {
     const policies = await reportService.fetchExpiringPolicies();
