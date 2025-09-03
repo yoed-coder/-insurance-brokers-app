@@ -1,5 +1,5 @@
 const aiService = require('../services/ai.service');
-const { pool } = require('../config/db.config'); // ✅ DB connection
+const { pool } = require('../config/db.config'); 
 
 exports.generateLetter = async (req, res) => {
   try {
@@ -9,7 +9,7 @@ exports.generateLetter = async (req, res) => {
       return res.status(400).json({ message: 'Insured name is required' });
     }
 
-    // ✅ Get insured details from DB
+  
     const [rows] = await pool.query(
       'SELECT insured_id, insured_name, contact_phone, contact_email, address FROM insured_info WHERE insured_name = ?',
       [insuredName]
@@ -21,7 +21,7 @@ exports.generateLetter = async (req, res) => {
 
     const insured = rows[0];
 
-    // ✅ Pass full insured object
+  
     const text = await aiService.generateLetter({ insured, letterType, instructions });
 
     res.json({ text });
