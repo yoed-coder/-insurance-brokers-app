@@ -1,7 +1,7 @@
 const insuredService = require('../services/customer.service');
 const aiService = require('../services/ai.service');
 
-// GET /insured
+
 exports.getAllInsured = async (req, res) => {
   try {
     const insureds = await insuredService.getAllInsured();
@@ -12,7 +12,7 @@ exports.getAllInsured = async (req, res) => {
   }
 };
 
-// POST /insured/letter
+
 exports.generateLetter = async (req, res) => {
   try {
     const { insuredId, letterType, instructions } = req.body;
