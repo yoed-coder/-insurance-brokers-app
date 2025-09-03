@@ -1,9 +1,6 @@
 const { pool } = require('../config/db.config');
 const bcrypt = require('bcrypt');
 
-/**
- * Check if employee already exists by email
- */
 async function checkIfEmployeeExists(email) {
   const [rows] = await pool.query(
     'SELECT employee_id FROM employee WHERE employee_email = ? LIMIT 1',
@@ -12,9 +9,6 @@ async function checkIfEmployeeExists(email) {
   return rows.length > 0;
 }
 
-/**
- * Create a new employee with all related records
- */
 async function createEmployee(employee) {
   const connection = await pool.getConnection();
   try {
@@ -36,17 +30,14 @@ async function createEmployee(employee) {
 
     const company_role_id = employee.company_role_id ?? 1;
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(employee.employee_password, 10);
 
-    // Insert employee base record
     const [result] = await connection.query(
       'INSERT INTO employee (employee_email, active_employee, added_date) VALUES (?, ?, ?)',
       [employee.employee_email, employee.active_employee ?? 1, new Date()]
     );
     const employee_id = result.insertId;
 
-    // Insert info
     await connection.query(
       `INSERT INTO employee_info 
        (employee_id, employee_first_name, employee_last_name, employee_phone) 
@@ -54,13 +45,11 @@ async function createEmployee(employee) {
       [employee_id, employee.employee_first_name, employee.employee_last_name, employee.employee_phone]
     );
 
-    // Insert password
     await connection.query(
       'INSERT INTO employee_pass (employee_id, employee_password_hashed) VALUES (?, ?)',
       [employee_id, hashedPassword]
     );
-
-    // Insert role
+    
     await connection.query(
       'INSERT INTO employee_role (employee_id, company_role_id) VALUES (?, ?)',
       [employee_id, company_role_id]
@@ -85,9 +74,6 @@ async function createEmployee(employee) {
   }
 }
 
-/**
- * Get employee by email (with role info)
- */
 async function getEmployeeByEmail(employee_email) {
   const query = `
     SELECT 
@@ -118,9 +104,6 @@ async function getEmployeeByEmail(employee_email) {
   }
 }
 
-/**
- * Get all employees (deduplicated)
- */
 async function getAllEmployees() {
   const query = `
     SELECT 
@@ -156,9 +139,6 @@ async function getAllEmployees() {
   }
 }
 
-/**
- * Update employee
- */
 async function updateEmployee(employee_id, updatedData) {
   const connection = await pool.getConnection();
   try {
@@ -183,7 +163,6 @@ async function updateEmployee(employee_id, updatedData) {
       [employee_first_name, employee_last_name, employee_phone, employee_id]
     );
 
-    // Ensure role exists or update
     await connection.query(
       `INSERT INTO employee_role (employee_id, company_role_id)
        VALUES (?, ?)
@@ -202,9 +181,6 @@ async function updateEmployee(employee_id, updatedData) {
   }
 }
 
-/**
- * Delete employee and related records
- */
 async function deleteEmployee(employee_id) {
   const connection = await pool.getConnection();
   try {
