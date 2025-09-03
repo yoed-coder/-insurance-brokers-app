@@ -1,9 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-/**
- * Middleware to verify JWT token from Authorization header
- */
 const verifyToken = (req, res, next) => {
   try {
     const authHeader = req.headers['authorization'];
@@ -16,7 +13,6 @@ const verifyToken = (req, res, next) => {
       });
     }
 
-    // Expect: "Bearer <token>"
     const parts = authHeader.split(' ');
     if (parts.length !== 2 || parts[0] !== 'Bearer') {
       console.warn('🚫 Invalid token format received:', authHeader);
@@ -32,7 +28,6 @@ const verifyToken = (req, res, next) => {
       if (err) {
         console.error('🚫 JWT verification failed:', err.message);
 
-        // Specifically handle expired token
         if (err.name === 'TokenExpiredError') {
           return res.status(401).json({
             status: 'fail',
@@ -46,7 +41,6 @@ const verifyToken = (req, res, next) => {
         });
       }
 
-      // ✅ Attach decoded payload to req.employee (as expected by controllers)
       req.employee = decoded;
       console.log('✅ JWT verified for employee:', decoded.employee_email);
 
@@ -61,9 +55,6 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-/**
- * Middleware to allow only Admin role (company_role_id = 3)
- */
 const isAdmin = (req, res, next) => {
   try {
     const roleId = req.employee?.company_role_id;
