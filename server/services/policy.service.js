@@ -1,16 +1,13 @@
-// services/policy.service.js
 const { pool } = require('../config/db.config');
-const auditService = require('./audit.service'); // use addLog
+const auditService = require('./audit.service');
 
-// -------------------- Helper --------------------
-// Convert value to number or null
 function safeNumber(val) {
   if (val === undefined || val === null || val === '') return null;
   const n = Number(val);
   return isNaN(n) ? null : n;
 }
 
-// Find or create entity (insured, insurer, policy_type)
+
 async function findOrCreateEntity(table, column, value) {
   if (!value) return null;
 
@@ -29,7 +26,6 @@ async function findOrCreateEntity(table, column, value) {
   return result.insertId;
 }
 
-// -------------------- CREATE POLICY --------------------
 exports.createPolicy = async (data) => {
   const {
     policy_number = null,
@@ -68,7 +64,6 @@ exports.createPolicy = async (data) => {
 
     const policyId = policyResult.insertId;
 
-    // Insert vehicle plates
     if (plates && plates.length > 0) {
       for (const plate of plates) {
         if (plate && plate.trim() !== '') {
@@ -82,7 +77,6 @@ exports.createPolicy = async (data) => {
 
     await conn.commit();
 
-    // Audit log - use insured name instead of policy number
     await auditService.addLog(
       employee_id,
       'CREATE',
@@ -99,7 +93,6 @@ exports.createPolicy = async (data) => {
   }
 };
 
-// -------------------- UPDATE POLICY --------------------
 exports.updatePolicy = async (id, data) => {
   const {
     policy_number = null,
@@ -138,7 +131,6 @@ exports.updatePolicy = async (id, data) => {
       ]
     );
 
-    // Update vehicle plates
     await conn.execute(`DELETE FROM vehicle WHERE policy_id = ?`, [id]);
     if (plates && plates.length > 0) {
       for (const plate of plates) {
@@ -153,7 +145,6 @@ exports.updatePolicy = async (id, data) => {
 
     await conn.commit();
 
-    // Audit log - use insured name
     await auditService.addLog(
       employee_id,
       'UPDATE',
@@ -171,7 +162,6 @@ exports.updatePolicy = async (id, data) => {
   }
 };
 
-// -------------------- DELETE POLICY --------------------
 exports.deletePolicy = async (id, employee_id = null, insured_name = null) => {
   const conn = await pool.getConnection();
   try {
@@ -182,7 +172,6 @@ exports.deletePolicy = async (id, employee_id = null, insured_name = null) => {
 
     await conn.commit();
 
-    // Audit log - pass insured name if available
     await auditService.addLog(
       employee_id,
       'DELETE',
@@ -200,7 +189,6 @@ exports.deletePolicy = async (id, employee_id = null, insured_name = null) => {
   }
 };
 
-// -------------------- GET ALL POLICIES --------------------
 exports.getAllPolicies = async () => {
   const [rows] = await pool.execute(
     `SELECT 
@@ -230,7 +218,6 @@ exports.getAllPolicies = async () => {
   }));
 };
 
-// -------------------- GET EXPIRING POLICIES --------------------
 exports.getExpiringPolicies = async () => {
   try {
     const query = `
