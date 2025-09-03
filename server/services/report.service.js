@@ -1,6 +1,5 @@
 const { pool } = require('../config/db.config');
 
-// Get policies expiring in next 30 days with insured name, insurer branch name, and policy type
 exports.fetchExpiringPolicies = async () => {
   const [rows] = await pool.query(`
     SELECT 
