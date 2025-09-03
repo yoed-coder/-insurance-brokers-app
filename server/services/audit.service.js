@@ -1,6 +1,5 @@
 const { pool } = require('../config/db.config');
 
-// Insert a log (safe against undefined)
 async function addLog(employeeId, action, entity, entityId, description) {
   const safeEmployeeId = employeeId ?? null;
   const safeAction = action ?? "UNKNOWN_ACTION";
@@ -22,7 +21,6 @@ async function addLog(employeeId, action, entity, entityId, description) {
   ]);
 }
 
-// Get all logs
 async function getAllLogs() {
   const sql = `
     SELECT al.*, e.employee_first_name AS employee_name
