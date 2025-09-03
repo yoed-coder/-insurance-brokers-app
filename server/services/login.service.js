@@ -45,16 +45,15 @@ console.log('Compare result:', passwordMatch);
         message: 'Incorrect password'
       };
     }
-    // Exclude sensitive fields before returning
+  
     const { employee_password_hashed, ...safeEmployee } = employee;
 
-    // Generate JWT token (use your secret and payload as needed)
     const token = jwt.sign(
         {
           employee_id: safeEmployee.employee_id,
           employee_email: safeEmployee.employee_email,
-          employee_first_name: safeEmployee.employee_first_name, // ✅ include this
-          company_role_id: safeEmployee.company_role_id,          // ✅ include this if needed
+          employee_first_name: safeEmployee.employee_first_name, 
+          company_role_id: safeEmployee.company_role_id,          
           company_role_name: safeEmployee.company_role_name
         },
         process.env.JWT_SECRET || 'your_jwt_secret_here',
@@ -64,7 +63,7 @@ console.log('Compare result:', passwordMatch);
 
     const response = {
       status: 'success',
-      token,              // <-- Include the JWT token here
+      token,             
       data: safeEmployee
     };
 
