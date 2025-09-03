@@ -1,6 +1,5 @@
 const { pool } = require('../config/db.config');
 
-/* ---------------------- Get Commission Status ---------------------- */
 exports.getCommissionStatus = async () => {
   const [rows] = await pool.query(`
     SELECT 
@@ -19,7 +18,6 @@ exports.getCommissionStatus = async () => {
   return rows;
 };
 
-/* ---------------------- Add Commission Payment ---------------------- */
 exports.addCommissionPayment = async (policy_id, payment_amount, paid_by) => {
   const [result] = await pool.query(
     `INSERT INTO commission_payment (policy_id, payment_amount, paid_by)
@@ -29,7 +27,6 @@ exports.addCommissionPayment = async (policy_id, payment_amount, paid_by) => {
   return { success: true, payment_id: result.insertId };
 };
 
-/* ---------------------- Update Commission Status ---------------------- */
 exports.updateCommissionStatus = async (policyId, status) => {
   const [result] = await pool.query(
     `UPDATE policy SET commission_status = ? WHERE policy_id = ?`,
@@ -38,7 +35,6 @@ exports.updateCommissionStatus = async (policyId, status) => {
   if (result.affectedRows === 0) throw new Error("Policy not found");
 };
 
-/* ---------------------- Update Commission Details (inline edit) ---------------------- */
 exports.updateCommissionDetails = async (policyId, { 
   insured_name, 
   insurer_name, 
@@ -46,7 +42,7 @@ exports.updateCommissionDetails = async (policyId, {
   premium, 
   total_commission 
 }) => {
-  // 1️⃣ Update policy table
+
   const [policyResult] = await pool.query(
     `UPDATE policy 
      SET policy_number = ?, premium = ?, commission = ?
@@ -56,7 +52,6 @@ exports.updateCommissionDetails = async (policyId, {
 
   if (policyResult.affectedRows === 0) throw new Error("Policy not found");
 
-  // 2️⃣ Update insured name
   await pool.query(
     `UPDATE insured i
      JOIN policy p ON i.insured_id = p.insured_id
@@ -65,7 +60,6 @@ exports.updateCommissionDetails = async (policyId, {
     [insured_name, policyId]
   );
 
-  // 3️⃣ Update insurer name
   await pool.query(
     `UPDATE insurer ir
      JOIN policy p ON ir.insurer_id = p.insurer_id
