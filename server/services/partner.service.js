@@ -1,6 +1,5 @@
 const { pool } = require('../config/db.config');
 
-// Get all insurers
 exports.getAllInsurers = async () => {
   const [rows] = await pool.query(
     'SELECT insurer_id, insurer_name FROM insurer ORDER BY insurer_name ASC'
@@ -8,7 +7,6 @@ exports.getAllInsurers = async () => {
   return rows;
 };
 
-// Get one insurer by ID
 exports.getInsurerById = async (insurerId) => {
   const [rows] = await pool.query(
     `SELECT insurer_id, insurer_name 
