@@ -9,7 +9,6 @@ exports.addPlatesForPolicy = async (policy_id, plates) => {
   try {
     await conn.beginTransaction();
 
-    // Get insured_id for this policy
     const [policyRows] = await conn.query(
       'SELECT insured_id FROM policy WHERE policy_id = ?',
       [policy_id]
@@ -21,7 +20,6 @@ exports.addPlatesForPolicy = async (policy_id, plates) => {
 
     const insured_id = policyRows[0].insured_id;
 
-    // Insert plates with both insured_id & policy_id
     const insertPromises = plates.map(plate =>
       conn.query(
         'INSERT INTO vehicle (insured_id, policy_id, plate_number) VALUES (?, ?, ?)',
