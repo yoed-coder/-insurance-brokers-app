@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsureSmart AI | Insurance Broker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a4b8c, #2b6cb0);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 32px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #a3e0ff;
+        }
+        
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f8f9fa"/><path d="M0 0L100 100" stroke="%23e9ecef" stroke-width="1"/><path d="M100 0L0 100" stroke="%23e9ecef" stroke-width="1"/></svg>');
+            background-size: cover;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            color: #1a4b8c;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 22px;
+            color: #4a5568;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background: #3182ce;
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #2b6cb0;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: #1a4b8c;
+            margin-bottom: 20px;
+        }
+        
+        .section-title p {
+            font-size: 18px;
+            color: #718096;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: #ebf4ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 32px;
+            color: #3182ce;
+        }
+        
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+        
+        .feature-card p {
+            color: #718096;
+        }
+        
+        .ai-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f5f7fa, #e6f7ff);
+        }
+        
+        .ai-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .ai-demo {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chat-container {
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background: #3182ce;
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8fafc;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+        
+        .ai-message {
+            background: #ebf4ff;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .user-message {
+            background: #e6fffa;
+            border-left: 4px solid #38b2ac;
+            margin-left: auto;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 50px;
+            outline: none;
+        }
+        
+        .chat-input button {
+            margin-left: 10px;
+            background: #3182ce;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            width: 50px;
+            cursor: pointer;
+        }
+        
+        .ai-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .ai-content h2 {
+            font-size: 36px;
+            color: #1a4b8c;
+            margin-bottom: 20px;
+        }
+        
+        .ai-content p {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 30px;
+        }
+        
+        .benefits {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .benefit-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .benefit-item {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: #ebf4ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #3182ce;
+        }
+        
+        .benefit-text h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+        
+        footer {
+            background: #1a4b8c;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #a3e0ff;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #a3e0ff;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #2c5282;
+            color: #a3e0ff;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>InsureSmart AI</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Insurance Plans</a></li>
+                        <li><a href="#">Claims</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Revolutionizing Insurance with AI</h1>
+            <p>Get personalized insurance recommendations, instant claims support, and risk assessment powered by artificial intelligence.</p>
+            <a href="#" class="btn">Get a Free Quote</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI-Powered Insurance Solutions</h2>
+                <p>Our advanced AI technology helps you find the perfect coverage while saving time and money</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Risk Assessment</h3>
+                    <p>Our algorithms analyze your profile to determine optimal coverage and identify potential risks.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>24/7 Chat Support</h3>
+                    <p>Get instant answers to your insurance questions with our AI-powered chatbot.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Fast Claims Processing</h3>
+                    <p>AI-assisted claims processing reduces wait times from days to just hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ai-section">
+        <div class="container">
+            <div class="ai-container">
+                <div class="ai-demo">
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <i class="fas fa-robot"></i> InsureSmart AI Assistant
+                        </div>
+                        <div class="chat-messages">
+                            <div class="message ai-message">
+                                Hello! I'm your AI insurance assistant. How can I help you today?
+                            </div>
+                            <div class="message user-message">
+                                I'm looking for auto insurance. What options do you have?
+                            </div>
+                            <div class="message ai-message">
+                                We have several auto insurance options! Could you tell me about your vehicle and driving history so I can recommend the best coverage for you?
+                            </div>
+                            <div class="message user-message">
+                                I drive a 2020 Honda Civic with a clean driving record.
+                            </div>
+                            <div class="message ai-message">
+                                Great! Based on that information, I recommend our Comprehensive Auto Plan which includes collision, liability, and uninsured motorist coverage. Would you like me to generate a quote?
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" placeholder="Type your message here...">
+                            <button><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ai-content">
+                    <h2>Intelligent Insurance Assistance</h2>
+                    <p>Our AI assistant is available 24/7 to answer your questions, provide quotes, and help you understand your coverage options. It learns from thousands of insurance cases to give you the most accurate advice.</p>
+                    <a href="#" class="btn">Try AI Assistant</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>Benefits of AI Integration</h2>
+                <p>How artificial intelligence transforms your insurance experience</p>
+            </div>
+            <div class="benefit-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="benefit-text">
+                        <h3>Personalized Premiums</h3>
+                        <p>AI analyzes your specific risk factors to calculate fair, personalized premiums.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="benefit-text">
+                        <h3>Fraud Detection</h3>
+                        <p>Advanced pattern recognition identifies and prevents fraudulent claims.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="benefit-text">
+                        <h3>Faster Service</h3>
+                        <p>Automated processing and instant responses reduce waiting times significantly.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fasfa-lightbulb"></i>
+                    </div>
+                    <div class="benefit-text">
+                        <h3>Smart Recommendations</h3>
+                        <p>Get coverage recommendations based on your lifestyle and needs analysis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>InsureSmart AI</h3>
+                    <p>Revolutionizing the insurance industry with artificial intelligence and personalized service.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Insurance Products</h3>
+                    <ul>
+                        <li><a href="#">Auto Insurance</a></li>
+                        <li><a href="#">Home Insurance</a></li>
+                        <li><a href="#">Life Insurance</a></li>
+                        <li><a href="#">Health Insurance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">File a Claim</a></li>
+                        <li><a href="#">Get a Quote</a></li>
+                        <li><a href="#">Customer Portal</a></li>
+                        <li><a href="#">Contact Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> 1-800-INSURANCE</li>
+                        <li><i class="fas fa-envelope"></i> support@insuresmart.ai</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Insurance Ave, San Francisco, CA</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 InsureSmart AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple chatbot functionality for demonstration
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatInput = document.querySelector('.chat-input input');
+            const chatButton = document.querySelector('.chat-input button');
+            const chatMessages = document.querySelector('.chat-messages');
+            
+            chatButton.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    // Add user message
+                    addMessage(message, 'user');
+                    chatInput.value = '';
+                    
+                    // Simulate AI response after a short delay
+                    setTimeout(() => {
+                        let response;
+                        if (message.toLowerCase().includes('quote') || message.toLowerCase().includes('price')) {
+                            response = "I'd be happy to help with a quote. Could you provide some more details about what you're looking to insure?";
+                        } else if (message.toLowerCase().includes('claim')) {
+                            response = "For claims assistance, I can help you start the process. Please provide your policy number and describe the incident.";
+                        } else if (message.toLowerCase().includes('thank')) {
+                            response = "You're welcome! Is there anything else I can help you with today?";
+                        } else {
+                            response = "I understand you're saying: '" + message + "'. As an AI assistant, I can help with quotes, claims, policy information, and general insurance questions.";
+                        }
+                        addMessage(response, 'ai');
+                    }, 1000);
+                }
+            }
+            
+            function addMessage(text, type) {
+                const messageEl = document.createElement('div');
+                messageEl.classList.add('message');
+                messageEl.classList.add(type === 'user' ? 'user-message' : 'ai-message');
+                messageEl.textContent = text;
+                chatMessages.appendChild(messageEl);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>

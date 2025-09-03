@@ -1,0 +1,68 @@
+/* Container */
+.ai-assistant-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #1e1e2f;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  margin-top: 100px;
+}
+
+/* Title */
+.ai-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #00d9ff;
+}
+
+/* Form spacing */
+.ai-form .form-group {
+  margin-bottom: 18px;
+}
+
+/* Labels */
+.ai-form label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Select & Input */
+.ai-form select,
+.ai-form textarea {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #444;
+  padding: 10px;
+  background-color: #2a2a3d;
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+/* Focus state */
+.ai-form select:focus,
+.ai-form textarea:focus {
+  outline: none;
+  border-color: #00d9ff;
+  box-shadow: 0 0 5px #00d9ff;
+}
+
+/* Buttons container */
+.ai-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Button styles */
+.ai-btn {
+  flex: 1;
+  margin: 0 6px;
+  border-radius: 8px !important;
+  font-weight: 500;
+  padding: 10px 0;
+}

@@ -1,0 +1,319 @@
+/* Commission Page Wrapper with Background */
+.commission-page-wrapper {
+  min-height: 100vh;
+  padding: 20px 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Commission Container */
+.commission-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Commission Title */
+.commission-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.title-underline {
+  color: #ee0d09;
+  font-weight: 700;
+}
+
+/* Commission Loading */
+.commission-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  color: #6c757d;
+}
+
+/* Commission Table Container */
+.commission-table-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  margin-bottom: 25px;
+}
+
+.commission-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Commission Table */
+.commission-table {
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  font-size: 14px;
+  background: transparent;
+}
+
+.commission-table th {
+  background: linear-gradient(135deg, #4a6580 0%, #2c3e50 100%);
+  color: white;
+  font-weight: 600;
+  padding: 16px 12px;
+  text-align: center;
+  border: none;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.commission-table td {
+  padding: 14px 12px;
+  vertical-align: middle;
+  border-bottom: 1px solid #e1e6ef;
+  text-align: center;
+  position: relative;
+  background: rgba(255, 255, 255, 0.8);
+  color: #2c3e50;
+  white-space: nowrap;
+}
+
+.commission-row:hover td {
+  background: rgba(74, 101, 128, 0.05);
+  transition: background-color 0.2s ease;
+}
+
+.action-btn {
+  background: linear-gradient(135deg, #4a6580, #2c3e50);
+  color: white;
+}
+
+.me-2 {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+}
+
+.mf-2 {
+  background: linear-gradient(135deg, #6c757d, #5a6268);
+  color: white;
+}
+
+/* Form Controls */
+.commission-table .form-control {
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  width: 100%;
+  background: white;
+  color: #2c3e50;
+}
+
+.commission-table .form-control:focus {
+  border-color: #4a6580;
+  box-shadow: 0 0 0 0.2rem rgba(74, 101, 128, 0.25);
+}
+
+/* Checkbox Styling */
+.form-check-input {
+  cursor: pointer;
+}
+
+.form-check-label {
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+/* Action Buttons */
+.action-btn {
+  height: 36px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+  font-weight: 600;
+  gap: 6px;
+  min-width: 70px;
+  white-space: nowrap;
+}
+
+.action-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Responsive Design for Tablets and Mobile */
+@media (max-width: 992px) {
+  .commission-container {
+    padding: 15px;
+  }
+  
+  .commission-title {
+    font-size: 28px;
+  }
+  
+  .commission-table th,
+  .commission-table td {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+  
+  .action-btn {
+    padding: 0 12px;
+    font-size: 12px;
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .commission-title {
+    font-size: 24px;
+  }
+  
+  .commission-table-responsive {
+    overflow-x: visible;
+  }
+  
+  .commission-table {
+    min-width: 100%;
+  }
+  
+  .commission-table thead {
+    display: none;
+  }
+  
+  .commission-table tbody, 
+  .commission-table tr, 
+  .commission-table td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: right;
+  }
+  
+  .commission-table tr {
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background: white;
+  }
+  
+  .commission-table td {
+    padding: 12px 15px;
+    border: none;
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+    border-bottom: 1px solid #e1e6ef;
+    white-space: normal;
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+  }
+  
+  .commission-table td:last-child {
+    border-bottom: none;
+  }
+  
+  .commission-table td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    width: 45%;
+    padding-right: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #4a6580;
+  }
+  
+  .commission-table td[data-label="Actions"]:before {
+    display: none;
+  }
+  
+  .edit-actions {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .action-btn {
+    width: 100%;
+    max-width: 120px;
+    margin: 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .commission-page-wrapper {
+    padding: 10px 0;
+  }
+  
+  .commission-container {
+    padding: 10px;
+  }
+  
+  .commission-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  
+  .commission-table td {
+    padding: 10px 12px;
+    padding-left: 45%;
+    font-size: 13px;
+    min-height: 45px;
+  }
+  
+  .commission-table td:before {
+    width: 40%;
+    font-size: 12px;
+  }
+  
+  .action-btn {
+    height: 32px;
+    font-size: 12px;
+    min-width: 55px;
+    padding: 0 10px;
+  }
+  
+  .edit-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 400px) {
+  .commission-table td {
+    padding-left: 40%;
+  }
+  
+  .commission-table td:before {
+    width: 35%;
+    font-size: 11px;
+  }
+  
+  .action-btn {
+    min-width: 50px;
+    font-size: 11px;
+  }
+}
