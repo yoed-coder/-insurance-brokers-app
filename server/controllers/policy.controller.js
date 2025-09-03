@@ -1,13 +1,12 @@
 const policyService = require('../services/policy.service');
 const xlsx = require('xlsx');
-const auditService = require('../services/audit.service'); // ensure correct import
+const auditService = require('../services/audit.service'); 
 
-// ✅ Create a new policy
 exports.createPolicy = async (req, res) => {
   try {
     const policyData = req.body;
 
-    // Inject employee_id from JWT
+ 
     policyData.employee_id = req.employee.employee_id;
 
     const result = await policyService.createPolicy(policyData);
@@ -26,7 +25,7 @@ exports.createPolicy = async (req, res) => {
   }
 };
 
-// ✅ Get all policies
+
 exports.getAllPolicies = async (req, res) => {
   try {
     const policies = await policyService.getAllPolicies();
@@ -37,7 +36,6 @@ exports.getAllPolicies = async (req, res) => {
   }
 };
 
-// ✅ Get policies expiring in next 30 days
 exports.getExpiringPolicies = async (req, res) => {
   try {
     const policies = await policyService.getExpiringPolicies();
@@ -48,13 +46,11 @@ exports.getExpiringPolicies = async (req, res) => {
   }
 };
 
-// ✅ Update a policy by ID
 exports.updatePolicy = async (req, res) => {
   try {
     const { id } = req.params;
     const policyData = req.body;
 
-    // Inject employee_id from JWT
     policyData.employee_id = req.employee.employee_id;
 
     const result = await policyService.updatePolicy(id, policyData);
@@ -66,22 +62,17 @@ exports.updatePolicy = async (req, res) => {
   }
 };
 
-
-// ✅ Delete a policy by ID
 exports.deletePolicy = async (req, res) => {
   try {
     const { id } = req.params;
-    // Get employee ID from authenticated JWT
     const employee_id = req.employee ? req.employee.employee_id : null;
 
     const result = await policyService.deletePolicy(id, employee_id);
-
-    // Audit log
     await require('../services/audit.service').addLog(
       employee_id,
       'DELETE',
       'Policy',
-      Number(id), // ensure integer
+      Number(id), 
       `Deleted policy ${id}`
     );
 
@@ -92,7 +83,6 @@ exports.deletePolicy = async (req, res) => {
   }
 };
 
-// ✅ Import policies from Excel
 exports.importPolicies = async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ success: false, message: 'No file uploaded' });
@@ -128,7 +118,6 @@ exports.importPolicies = async (req, res) => {
 
       importedCount++;
 
-      // Audit log for each imported policy
       await auditService.addLog(
         null,
         'CREATE',
