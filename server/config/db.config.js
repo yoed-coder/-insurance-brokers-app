@@ -8,12 +8,12 @@ const dbConfig = {
     host: process.env.DB_HOST
 };
 
-console.log(process.env); // You can keep this for debugging
+console.log(process.env); 
 
-// Create the pool (this is async-capable because you're using mysql2/promise)
+
 const pool = mysql.createPool(dbConfig);
 
-// Custom wrapper to use the pool
+
 async function query(sql, params) {
     const [rows, fields] = await pool.execute(sql, params);
     return rows;
